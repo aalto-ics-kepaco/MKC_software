@@ -1,4 +1,3 @@
-# MKC_software
 # MKC
 Multi-view Kernel Completion
 
