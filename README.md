@@ -2,7 +2,7 @@
 Multi-view Kernel Completion
 
 (c) Sahely Bhadra
-sahely.bhadra@aalto.fi
+sahely.bhadra@aalto.fi or sahely@iitpkd.ac.in
 Details of the software are available in http://arxiv.org/abs/1602.02518
 
 Jun. 1, 2016.
@@ -27,7 +27,7 @@ K: kernels matrix size N x N x M. K(n1,n2,m) =kenrel values among n1 and n2 data
 
 MID: a matrix of NxM {0,1} matrix where MID(n,m) = 1 indicates nth data is known in mth view
 
-para: contain usedefined parameters 
+para: contain usedefined parameters : para.c1 Withinviewloss + para.c2 betweenviewloss + para.c3 L21norm regularisation
 
 init : if init =1 then S is initialized by assignning all off-diagonal element with same values
        otherwise it S is randomly initalized  
@@ -52,7 +52,7 @@ K: kernels matrix size N x N x M. K(n1,n2,m) =kenrel values among n1 and n2 data
 
 MID: a matrix of NxM {0,1} matrix where MID(n,m) = 1 indicates nth data is known in mth view
 
-para: contain usedefined parameters
+para: contain usedefined parameters : para.c1 Withinviewloss + para.c2 betweenviewloss + para.c3 L21norm regularisation
 
 init : if init =1 then A^{(m)} is initialized by non diagonal selfrepresentative matrix of K^{(m)}
        otherwise it A^{(m)} is randomly initalized  
@@ -79,7 +79,7 @@ K: kernels matrix size N x N x M. K(n1,n2,m) =kenrel values among n1 and n2 data
 
 MID: a matrix of NxM {0,1} matrix where MID(n,m) = 1 indicates nth data is known in mth view
 
-para: contain usedefined parameters 
+para: contain usedefined parameters : para.c1 Withinviewloss + para.c2 betweenviewloss + para.c3 L21norm regularisation
 
 init : if init =1 then A^{(m)} is initialized by non diagonal selfrepresentative matrix of K^{(m)}
        otherwise it A^{(m)} is randomly initalized  
