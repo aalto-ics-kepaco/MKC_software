@@ -5,7 +5,7 @@ function [PredK,A,S,obj,iOutput] = MKCemdbht(K,MID,para,init)
 % input :
 % K: kernels matrix size N x N x M. K(n1,n2,m) =kenrel values among n1 and n2 datapoints in m view
 % MID: a matrix of NxM {0,1} matrix where MID(n,m) = 1 indicates nth data is known in mth view
-% para: contain usedefined parameters 
+% para: contain usedefined parameters para.c1 Withinviewloss + para.c2 betweenviewloss + para.c3 L21norm regularisation
 %
 %init : if init =1 then A^{(m)} is initialized by non diagonal selfrepresentative matrix of K^{(m)}
 %       otherwise it A^{(m)} is randomly initalized  
