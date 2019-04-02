@@ -21,7 +21,7 @@ for nInd=1:1:MISS
 for r=1:1:Rep
      for cv=1:1:2
          if cv ==1   
-            idts = squeeze([IDtr(tsr,:),IDts(r,:)]);
+            idts = squeeze([IDtrts(r,:),IDts(r,:)]);
             Kts=K(idts,idts,:);
             MID=ones(length(IDtrts(r,:)),M);
 	if length(size(IDmisTest))==3
