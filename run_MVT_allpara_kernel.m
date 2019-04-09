@@ -28,7 +28,7 @@ c1=para(count,1);
 c2=para(count,2);
 c3=para(count,3);
 inpara=[c1,c2,c3];
- [rmse]=MKCkernel_run(name,3,c1,c2,c3);
+ [rmse]=MKCapp_run(name,3,c1,c2,c3);
 fname =[name,'_kernel'];
 system(['mkdir ../',fname]);
 save(['../',fname,'/rmse',num2str(c),'.mat'],'rmse','para','c','inpara');
