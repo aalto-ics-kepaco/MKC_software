@@ -44,7 +44,7 @@ iOutput : intermediate objective function
 
 function [PredK,A,S,obj,iOutput] = MKCapp(K,MID,para,init)
 
-This solve MKCkernel formulation 
+This solve MKCapp formulation 
 
 input :
 
