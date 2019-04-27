@@ -2,10 +2,14 @@
 Multi-view Kernel Completion
 
 (c) Sahely Bhadra
-sahely.bhadra@aalto.fi or sahely@iitpkd.ac.in
+sahely@iitpkd.ac.in
+Jun. 1, 2016.
+
+This version is debugged by Xiangju Qin, a postdoctoral researcher in Prof. Tero Aittokallio's group at FIMM, university of Helsinki. I convey my regards to her.
+April, 2019.
+
 Details of the software are available in http://arxiv.org/abs/1602.02518
 
-Jun. 1, 2016.
 This package contains  following three version of proposed multi-view kernel completion method along with supporting function and scripts
 
 1. MKCsdp
