@@ -1,6 +1,4 @@
-
-
-function [grad] = gmvt_inter(A,K,S,m,para,Obs)
+function [grad] = gkernel(A,K,S,m,para,Obs)
 
 grad=zeros(size(A,1),size(A,2));
 eps=1E-10;
@@ -8,39 +6,47 @@ M=size(K,3);
 N=size(K,2);
   
 for l =1:1:M
-temp(l).D=A(:,:,l)*K(:,:,l);
-temp(l).hatk=temp(l).D*A(:,:,l)';
+	temp(l).D=A(:,Obs(l).id,l)*K(Obs(l).id,Obs(l).id,l);
+	temp(l).hatk=temp(l).D*A(:,Obs(l).id,l)';
 end
 
-temp(m).B=K(:,:,m)-temp(m).hatk;
-temp(m).E=temp(m).B(:,Obs(m).id)*temp(m).D(Obs(m).id,:);
+	nObs=length(Obs(m).id);
+	if nObs~=N
+	    temp(m).B=K(Obs(m).id,Obs(m).id,m)-temp(m).hatk(Obs(m).id,Obs(m).id);
+	    temp(m).E=temp(m).B*temp(m).D(Obs(m).id,:);
+	else
+	    temp(m).B=K(:,:,m)-temp(m).hatk;
+	    temp(m).E=temp(m).B*temp(m).D;
+	end
 
 for l=1:1:M
-temp(l).C=zeros(N,N) ;
-for l2=1:1:M
-if l2==l
-temp(l).C =temp(l).C+temp(l).hatk;
-else
-temp(l).C=temp(l).C-S(l,l2)*temp(l2).hatk;
-end
-end
+	temp(l).C=zeros(N,N) ;
+	for l2=1:1:M
+		if l2==l
+		temp(l).C =temp(l).C+temp(l).hatk;
+		else
+		temp(l).C=temp(l).C-S(l,l2)*temp(l2).hatk;
+		end
+	end
 end
 
 % grad for A of m th view only 
 
-grad = grad - 4*para.c1*temp(m).E/(M*length(Obs(m).id)^2); % for loss function
+grad(Obs(m).id,Obs(m).id) = grad(Obs(m).id,Obs(m).id) - 4*para.c1*temp(m).E/(M*length(Obs(m).id)^2); % for loss function
 
 % relevence part
 
 part= zeros(size(A,1),size(A,2));
+
 for l =1:1:M
-if l==m
-   part=part+temp(m).C;
-else
-part=part-S(l,m)*temp(l).C;
+	if l==m
+   		part=part+temp(m).C;
+	else
+		part=part-S(l,m)*temp(l).C;
+	end
 end
-end
-grad=grad+4*para.c2*(part*temp(m).D)/(M*N);
+
+grad(Obs(m).id,Obs(m).id)=grad(Obs(m).id,Obs(m).id)+4*para.c2*(part(Obs(m).id,Obs(m).id)*temp(m).D(Obs(m).id,:))/(M*N);
 
 clear temp part;
 

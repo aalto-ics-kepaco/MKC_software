@@ -9,26 +9,25 @@ M=size(K,3);
 N=size(K,2);
   
 for l =1:1:M
-temp(l).T=zeros(size(A,1),size(A,2));
-for l2=1:1:M
-	if l2==l
-	else
-           temp(l).T=S(l,l2)*A(:,:,l2);
+	temp(l).T=zeros(size(A,1),size(A,2));
+	for l2=1:1:M
+		if l2==l
+		else
+           		temp(l).T=S(l,l2)*A(:,:,l2);
+		end
 	end
+
+	temp(l).D=A(:,Obs(l).id,l)*K(Obs(l).id,Obs(l).id,l);
+	temp(l).hatk=temp(l).D*A(:,Obs(l).id,l)';
+	temp(l).B=K(Obs(l).id,Obs(l).id,l)-temp(l).hatk(Obs(l).id,Obs(l).id);
+	temp(l).E=temp(l).B*temp(l).D(Obs(l).id,:);
+	temp(l).C=A(:,:,l)-temp(l).T;
 end
 
-temp(l).D=A(:,:,l)*K(:,:,l);
-temp(l).hatk=temp(l).D*A(:,:,l)';
-temp(l).B=K(:,:,l)-temp(l).hatk;
-temp(l).E=temp(l).B(:,Obs(l).id)*temp(l).D(Obs(l).id,:);
-temp(l).C=A(:,:,l)-temp(l).T;
-end
-
- Part1=zeros(N,N);
-
+Part1=zeros(N,N);
 
 Part1=-temp(m).E;
-grad= grad +4*para.c1*Part1/(M*length(Obs(m).id)^2);
+grad(Obs(m).id,Obs(m).id)= grad(Obs(m).id,Obs(m).id) +4*para.c1*Part1/(M*length(Obs(m).id)^2);
                           
 part= zeros(size(A,1),size(A,2));
 for l =1:1:M

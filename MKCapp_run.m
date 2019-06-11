@@ -24,7 +24,7 @@ for r=1:1:Rep
             idts = squeeze([IDtrts(r,:),IDts(r,:)]);
             Kts=K(idts,idts,:);
             MID=ones(length(IDtrts(r,:)),M);
-	if length(size(IDmisTest))==3
+	    if length(size(IDmisTest))==3
                 MID=[MID; squeeze(IDmisTest(:,:,nInd))];
             end
             if length(size(IDmisTest))==4
@@ -42,7 +42,12 @@ for r=1:1:Rep
             end   
 
         end
-
+        Kts0=Kts;
+        for m=1:1:M
+            unObs(m).id=find(MID(:,m)==0);
+            Kts0(unObs(m).id,:,m)=NaN;
+            Kts0(:,unObs(m).id,m)=NaN;
+        end
 
       if exist(['../',fname,'/sF',name,'miss_',num2str(nInd),'r_',num2str(r),'_cv_',num2str(cv),'_',str,'Model.mat'])==2
 
@@ -54,7 +59,7 @@ for r=1:1:Rep
                         
         	for init=1:1:5
                          stime = tic;        
-              		 [tPredK,tA,tS,tobjective,tiOutput]=MKCapp(Kts,MID,para,init);
+              		 [tPredK,tA,tS,tobjective,tiOutput]=MKCapp(Kts0,MID,para,init);
                          runtime(init)=toc(stime);
                		if tobjective.T <O
                    	   PredK=tPredK;
